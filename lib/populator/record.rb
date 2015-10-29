@@ -22,7 +22,7 @@ module Populator
           @attributes[column.to_sym] = Date.today
         when model_class.inheritance_column
           @attributes[column.to_sym] = model_class.to_s
-        else
+        when [:integer, :string].include?(model_class.columns_hash[column].cast_type.type)
           @attributes[column.to_sym] = Kernel.const_get(model_class.columns_hash[column].cast_type.type.capitalize)
         end
       end
