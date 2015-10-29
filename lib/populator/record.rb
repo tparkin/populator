@@ -23,7 +23,7 @@ module Populator
         when model_class.inheritance_column
           @attributes[column.to_sym] = model_class.to_s
         else
-          @attributes[column.to_sym] = model_class.columns_hash[column].cast_type
+          @attributes[column.to_sym] = Kernel.const_get(model_class.columns_hash[column].cast_type.type.capitalize)
         end
       end
     end
